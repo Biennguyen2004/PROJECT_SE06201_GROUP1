@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">user_manager_v1</string>
+    <string name="welcome_msg">Welcome User</string>
+
+    <!-- For Sign Up Page / Activity -->
+    <string name="go_to_sign_in">Already Have and account? Sign In</string>
+    <!-- For Sign In Page / Activity -->
+    <string name="go_to_sign_up">Don\'t Have and account? Sign Up</string>
+
+</resources>
