@@ -1,0 +1,73 @@
+package com.example.smarthome.adapter;
+
+import android.annotation.SuppressLint;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.smarthome.R;
+import com.example.smarthome.data.model.Message;
+import com.google.android.material.card.MaterialCardView;
+
+import java.util.List;
+
+public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHolder> {
+
+    private List<Message> messageList;
+
+    public MessageAdapter(List<Message> messageList) {
+        this.messageList = messageList;
+    }
+
+    @NonNull
+    @Override
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View chatView = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_item, parent, false);
+        return new MyViewHolder(chatView);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        Message message = messageList.get(position);
+
+        if (message.getSentBy().equals(Message.SEND_BY_ME)) {
+            holder.left_chat_view.setVisibility(View.GONE);
+            holder.right_chat_view.setVisibility(View.VISIBLE);
+            holder.right_chat_text_view.setText(message.getMessage());
+        } else {
+            holder.right_chat_view.setVisibility(View.GONE);
+            holder.left_chat_view.setVisibility(View.VISIBLE);
+            holder.left_chat_text_view.setText(message.getMessage());
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return (messageList != null) ? messageList.size() : 0;
+    }
+
+    // Cập nhật danh sách tin nhắn
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateMessages(List<Message> newMessages) {
+        this.messageList = newMessages;
+        notifyDataSetChanged();
+    }
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
+
+        MaterialCardView left_chat_view, right_chat_view;
+        TextView left_chat_text_view, right_chat_text_view;
+
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            left_chat_view = itemView.findViewById(R.id.left_chat_view);
+            right_chat_view = itemView.findViewById(R.id.right_chat_view);
+            left_chat_text_view = itemView.findViewById(R.id.left_chat_text_view);
+            right_chat_text_view = itemView.findViewById(R.id.right_chat_text_view);
+        }
+    }
+}
