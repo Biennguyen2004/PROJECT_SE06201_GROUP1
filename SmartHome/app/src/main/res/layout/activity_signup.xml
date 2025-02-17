@@ -19,7 +19,7 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="720dp"
         android:background="@drawable/login_background_bottom"
         android:orientation="vertical"
         android:padding="32dp"
@@ -27,6 +27,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Full Name"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edt_fullname"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/login_edittext_background"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:padding="8dp"
+            android:hint="ex: Dao Van Sang..."
+            android:textColor="#8e8e8e"
+            android:textColorHint="#8e8e8e"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textView21"
@@ -38,22 +61,23 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editTextText4"
+            android:id="@+id/edt_phone"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/login_edittext_background"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="phone"
             android:padding="8dp"
-            android:text="09x xxx xx3"
+            android:hint="09x xxx xx3"
             android:textColor="#8e8e8e"
             android:textColorHint="#8e8e8e"
             android:textSize="20sp" />
 
+
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/textView151"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Email"
@@ -62,7 +86,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editTextText2"
+            android:id="@+id/edt_email"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="8dp"
@@ -71,10 +95,11 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:padding="8dp"
-            android:text="sangdv@gmail.com"
+            android:hint="sangdv@gmail.com"
             android:textColor="#8e8e8e"
             android:textColorHint="#8e8e8e"
             android:textSize="20sp" />
+
 
         <TextView
             android:id="@+id/textView14"
@@ -86,7 +111,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editTextText3"
+            android:id="@+id/edt_password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="8dp"
@@ -109,7 +134,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editTextText5"
+            android:id="@+id/edt_repassword"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="8dp"
@@ -130,7 +155,7 @@
             android:textColor="#4d4d4d" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button3"
+            android:id="@+id/btn_signup"
             style="@android:style/Widget.Button"
             android:layout_width="match_parent"
             android:layout_height="55dp"
@@ -159,7 +184,7 @@
         android:id="@+id/textView20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="2dp"
         android:text="With Your Home"
         android:textColor="#ffffff"
         android:textSize="25sp"

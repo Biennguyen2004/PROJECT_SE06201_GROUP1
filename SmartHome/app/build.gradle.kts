@@ -41,10 +41,17 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
+    // ==================thư viện cho phần AI=============
     // Volley Library
     implementation("com.android.volley:volley:1.2.1")
-
     // ok http
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
+    // ================================
+
+
+    // ===============Thư viện cho Call api retrofit========
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
 
 }
