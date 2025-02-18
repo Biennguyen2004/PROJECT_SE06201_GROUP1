@@ -1,7 +1,7 @@
 package com.user_manager_v1.rest_controllers;
 
-import com.user_manager_v1.models.SensorGas;
-import com.user_manager_v1.repository.SensorGasRepository;
+import com.user_manager_v1.models.SensorRelay;
+import com.user_manager_v1.repository.SensorRelayRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,13 +11,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/sensor")
-public class SensorGasController {
+public class SensorRelayController {
 
     @Autowired
-    private SensorGasRepository repository;
+    private SensorRelayRepository repository;
 
-    @GetMapping("/gas")
-    public List<SensorGas> getAllData() {
+    @GetMapping("/relay")
+    public List<SensorRelay> getAllRelayData() {
         return repository.findAll();
     }
 }
