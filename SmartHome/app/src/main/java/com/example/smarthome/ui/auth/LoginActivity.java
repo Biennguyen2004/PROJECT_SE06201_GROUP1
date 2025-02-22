@@ -21,6 +21,7 @@ import com.example.smarthome.data.api.ApiService;
 import com.example.smarthome.data.model.Request.LoginRequest;
 import com.example.smarthome.data.model.response.LoginResponse;
 import com.example.smarthome.data.model.response.SignupResponse;
+import com.example.smarthome.ui.main.MainActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -93,8 +94,6 @@ public class LoginActivity extends AppCompatActivity {
             // Ngược lại đầu vào hợp lệ xử lý login
             doLogin(email, password);
         }
-
-
     }
 
     private void doLogin(String email, String password) {
@@ -117,7 +116,11 @@ public class LoginActivity extends AppCompatActivity {
                     LoginResponse loginResponse = response.body();
                     if (loginResponse != null && "200".equals(loginResponse.getError())) {
                         // Xử lý đăng nhập thành công
-                        Toast.makeText(LoginActivity.this, loginResponse.getSuccess(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "login thành công", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+
                     } else {
                         // Xử lý lỗi khi đăng nhập không thành công
                         Toast.makeText(LoginActivity.this, loginResponse.getError(), Toast.LENGTH_SHORT).show();
@@ -136,7 +139,6 @@ public class LoginActivity extends AppCompatActivity {
                 btnLogin.setEnabled(true);
             }
         });
-
     }
 
     private void initUI() {

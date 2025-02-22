@@ -34,7 +34,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
-        android:layout_width="150dp"
+        android:layout_width="140dp"
         android:layout_height="240dp"
         android:layout_marginStart="48dp"
         android:layout_marginTop="-85dp"
@@ -80,7 +80,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout5"
-        android:layout_width="150dp"
+        android:layout_width="140dp"
         android:layout_height="240dp"
         android:layout_marginEnd="48dp"
         android:background="@drawable/intro_column_background"

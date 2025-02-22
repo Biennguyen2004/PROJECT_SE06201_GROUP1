@@ -17,6 +17,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.smarthome.R;
 import com.example.smarthome.data.api.ApiClient;
+import com.example.smarthome.data.api.ApiService;
+import com.example.smarthome.data.model.Request.SignupRequest;
+import com.example.smarthome.data.model.response.LoginResponse;
 import com.example.smarthome.data.model.response.SignupResponse;
 
 import retrofit2.Call;
@@ -119,11 +122,15 @@ public class SignupActivity extends AppCompatActivity {
             doRegister(fullName, phone, email, password, rePassword);
     }
 
-    private void doRegister(String fullName, String phone, String email, String password, String rePassword) {
+    private void doRegister(String fullname, String phone, String email, String password, String rePassword) {
 
         btnSignup.setEnabled(false);
 
-        Call<SignupResponse> call = ApiClient.getInstance().getApiService().register(fullName, phone, email, password, rePassword);
+        ApiService apiService = ApiClient.getInstance().getApiService();
+
+        SignupRequest signupRequest = new SignupRequest(fullname, phone, email, password, rePassword);
+
+        Call<SignupResponse> call = apiService.register(signupRequest);
 
         call.enqueue((new Callback<SignupResponse>() {
             @Override
@@ -136,7 +143,7 @@ public class SignupActivity extends AppCompatActivity {
 
                     // Kiểm tra thông báo thành công
                     if (resp != null && resp.getError().equals("200")) {
-                        Toast.makeText(SignupActivity.this, String.valueOf(resp.getSuccess()), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignupActivity.this, "Register thành công", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
                         startActivity(intent);
                     } else {
