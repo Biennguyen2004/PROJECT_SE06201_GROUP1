@@ -29,11 +29,10 @@ public interface UserRepository extends CrudRepository<User , Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO users (first_name, last_name, email, password, created_at) VALUES (:first_name, :last_name, :email, :password, NOW())", nativeQuery = true)
-    int registerNewUser(@Param("first_name") String first_name,
-                        @Param("last_name") String last_name,
+    @Query(value = "INSERT INTO users (username, phone, email, password, created_at) VALUES (:username, :phone, :email, :password, NOW())", nativeQuery = true)
+    int registerNewUser(@Param("username") String username,
+                        @Param("phone") String phone,
                         @Param("email") String email,
                         @Param("password") String password);
-
 
 }
