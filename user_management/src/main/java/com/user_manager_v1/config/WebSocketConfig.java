@@ -1,14 +1,6 @@
 package com.user_manager_v1.config;
 
-import com.user_manager_v1.websocket.SensorDoorWebSocketHandler;
-import com.user_manager_v1.websocket.SensorGasWebSocketHandler;
-import com.user_manager_v1.websocket.SensorClimateWebSocketHandler;
-import com.user_manager_v1.websocket.SensorLightWebSocketHandler;
-import com.user_manager_v1.websocket.SensorMotionWebSocketHandler;
-import com.user_manager_v1.websocket.SensorRelayWebSocketHandler;
-import com.user_manager_v1.websocket.SensorWaterWebSocketHandler;
-
-
+import com.user_manager_v1.websocket.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;

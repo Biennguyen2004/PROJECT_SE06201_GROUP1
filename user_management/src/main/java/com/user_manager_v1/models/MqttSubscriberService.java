@@ -1,26 +1,23 @@
-package com.user_manager_v1.services;
-import java.util.Set;
+package com.user_manager_v1.models;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.user_manager_v1.repository.*;
+import com.user_manager_v1.utils.SslUtil;
 import com.user_manager_v1.websocket.*;
-import org.eclipse.paho.client.mqttv3.*;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import com.user_manager_v1.models.SensorGas;
-import com.user_manager_v1.models.SensorClimate;
-import com.user_manager_v1.models.SensorMotion;
-import com.user_manager_v1.models.SensorWater;
-import com.user_manager_v1.utils.SslUtil;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.user_manager_v1.models.SensorLight;
-import com.user_manager_v1.models.SensorDoor;
-import com.user_manager_v1.models.SensorRelay;
+
 import java.nio.charset.StandardCharsets;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
-import com.user_manager_v1.repository.SensorGasRepository;
 @Service
 public class MqttSubscriberService {
     private final String broker = "ssl://506956350ef1467185352df5050e3aa7.s1.eu.hivemq.cloud:8883";

@@ -1,9 +1,10 @@
 package com.user_manager_v1.websocket;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-import org.springframework.stereotype.Component;
+
 import java.util.concurrent.CopyOnWriteArraySet;
 @Component
 public class SensorMotionWebSocketHandler extends TextWebSocketHandler {

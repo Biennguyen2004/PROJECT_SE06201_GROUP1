@@ -1,7 +1,10 @@
-package com.user_manager_v1.services;
+package com.user_manager_v1.repository;
 
 import com.user_manager_v1.utils.SslUtil;
-import org.eclipse.paho.client.mqttv3.*;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.springframework.stereotype.Service;
 
 @Service
