@@ -11,4 +11,8 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
+
+
+    <color name="colorOn">#4CAF50</color>    <!-- Màu xanh lá, biểu thị trạng thái bật -->
+    <color name="colorOff">#F44336</color>   <!-- Màu đỏ, biểu thị trạng thái tắt -->
 </resources>

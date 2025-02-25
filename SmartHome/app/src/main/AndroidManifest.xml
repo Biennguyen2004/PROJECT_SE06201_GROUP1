@@ -2,9 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- Quyền sử dụng Internet và kiểm tra mạng -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
-    <!--    android:usesCleartextTraffic="true"-->
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,35 +14,40 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SmartHome"
-        tools:targetApi="31">
+        android:theme="@style/Theme.SmartHome">
+
+        <!-- Main Activity (ứng dụng khởi chạy từ đây) -->
         <activity
-            android:name=".ui.auth.SignupActivity"
-            android:exported="false" />
+            android:name=".ui.main.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Giới thiệu ứng dụng -->
+        <activity
+            android:name=".ui.intro.IntroActivity"
+            android:exported="true"/>
+
+        <!-- Đăng nhập & Đăng ký -->
         <activity
             android:name=".ui.auth.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.intro.IntroActivity"
-            android:exported="true">
+            android:name=".ui.auth.SignupActivity"
+            android:exported="false" />
 
-        </activity>
-
+        <!-- Điều khiển thiết bị (chỉ nội bộ) -->
         <activity
-            android:name=".ui.main.MainActivity"
-            android:exported="true">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-        </activity>
+            android:name=".ui.device.DoorActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
     </application>
 
 </manifest>

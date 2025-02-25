@@ -18,8 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.smarthome.R;
 import com.example.smarthome.data.api.ApiClient;
 import com.example.smarthome.data.api.ApiService;
-import com.example.smarthome.data.model.Request.SignupRequest;
-import com.example.smarthome.data.model.response.LoginResponse;
+import com.example.smarthome.data.model.request.SignupRequest;
 import com.example.smarthome.data.model.response.SignupResponse;
 
 import retrofit2.Call;

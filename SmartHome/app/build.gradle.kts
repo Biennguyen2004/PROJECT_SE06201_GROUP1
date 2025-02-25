@@ -56,4 +56,7 @@ dependencies {
     //================Websocket=======================
     implementation("com.squareup.okhttp3:okhttp:4.11.0")
 
+    // Thư viện inLogcat
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
 }

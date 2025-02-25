@@ -1,4 +1,4 @@
-package com.example.smarthome.data.model.Request;
+package com.example.smarthome.data.model.request;
 
 public class LoginRequest {
 
