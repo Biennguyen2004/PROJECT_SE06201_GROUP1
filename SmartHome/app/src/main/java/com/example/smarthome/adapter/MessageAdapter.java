@@ -1,22 +1,17 @@
 package com.example.smarthome.adapter;
 
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.smarthome.R;
 import com.example.smarthome.data.model.Message;
 import com.google.android.material.card.MaterialCardView;
-
 import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHolder> {
-
     private List<Message> messageList;
 
     public MessageAdapter(List<Message> messageList) {
@@ -50,15 +45,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
         return (messageList != null) ? messageList.size() : 0;
     }
 
-    // Cập nhật danh sách tin nhắn
-    @SuppressLint("NotifyDataSetChanged")
-    public void updateMessages(List<Message> newMessages) {
-        this.messageList = newMessages;
-        notifyDataSetChanged();
-    }
-
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-
         MaterialCardView left_chat_view, right_chat_view;
         TextView left_chat_text_view, right_chat_text_view;
 

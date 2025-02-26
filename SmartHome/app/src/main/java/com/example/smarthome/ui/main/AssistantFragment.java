@@ -67,6 +67,7 @@ public class AssistantFragment extends Fragment {
         send_btn.setOnClickListener(v -> {
             String question = message_text_text.getText().toString().trim();
             if (!question.isEmpty()) {
+                send_btn.setEnabled(false); // Vô hiệu hóa nút gửi khi đang gửi request
                 addToChat(question, Message.SEND_BY_ME);
                 message_text_text.setText("");
                 callAPI(question);
@@ -95,55 +96,71 @@ public class AssistantFragment extends Fragment {
             messageList.remove(messageList.size() - 1);
         }
         addToChat(response, Message.SEND_BY_BOT);
+        requireActivity().runOnUiThread(() -> send_btn.setEnabled(true)); // Bật lại nút gửi sau khi nhận phản hồi
     }
 
     private void callAPI(String question) {
-        if (ApiChat.API == null || ApiChat.API.isEmpty()) {
-            addResponse("API key is missing!");
+        if (ApiChat.API_KEY == null || ApiChat.API_KEY.isEmpty()) {
+            addResponse("🚨 API key is missing!");
             return;
         }
 
-        messageList.add(new Message("Typing...", Message.SEND_BY_BOT));
+        messageList.add(new Message("✍️ AI đang soạn tin...", Message.SEND_BY_BOT));
 
         JSONObject jsonBody = new JSONObject();
         try {
-            jsonBody.put("model", "text-davinci-003");
-            jsonBody.put("prompt", question);
-            jsonBody.put("max_tokens", 4000);
-            jsonBody.put("temperature", 0);
+            jsonBody.put("model", "gpt-4o"); // ✅ Sử dụng model phù hợp
+            JSONArray messagesArray = new JSONArray();
+            messagesArray.put(new JSONObject().put("role", "system").put("content", "Bạn là một trợ lý thông minh."));
+            messagesArray.put(new JSONObject().put("role", "user").put("content", question));
+
+            jsonBody.put("messages", messagesArray); // ✅ Dùng đúng định dạng
+            jsonBody.put("max_tokens", 200);
+            jsonBody.put("temperature", 0.7);
         } catch (JSONException e) {
-            addResponse("Lỗi tạo request JSON!");
+            addResponse("❌ Lỗi tạo request JSON!");
             return;
         }
 
         RequestBody requestBody = RequestBody.create(jsonBody.toString(), JSON);
         Request request = new Request.Builder()
-                .url(ApiChat.API_URL)
-                .header("Authorization", "Bearer " + ApiChat.API)
+                .url(ApiChat.API_URL) // ✅ Đảm bảo API URL đúng
+                .header("Authorization", "Bearer " + ApiChat.API_KEY)
+                .header("Content-Type", "application/json")
                 .post(requestBody)
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                addResponse("Lỗi kết nối: " + e.getMessage());
+                addResponse("❌ Lỗi kết nối: " + e.getMessage());
             }
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                requireActivity().runOnUiThread(() -> send_btn.setEnabled(true)); // Bật lại nút gửi
+
                 if (!response.isSuccessful() || response.body() == null) {
-                    addResponse("Lỗi server: " + response.code());
+                    addResponse("⚠️ Lỗi server: " + response.code());
                     return;
                 }
 
                 try {
                     String responseBody = response.body().string();
                     JSONObject jsonObject = new JSONObject(responseBody);
-                    JSONArray jsonArray = jsonObject.getJSONArray("choices");
-                    String result = jsonArray.getJSONObject(0).getString("text").trim();
+
+                    if (jsonObject.has("error")) {
+                        JSONObject error = jsonObject.getJSONObject("error");
+                        String errorMessage = error.getString("message");
+                        addResponse("⚠️ Lỗi API: " + errorMessage);
+                        return;
+                    }
+
+                    JSONArray choices = jsonObject.getJSONArray("choices");
+                    String result = choices.getJSONObject(0).getJSONObject("message").getString("content").trim();
                     addResponse(result);
                 } catch (JSONException e) {
-                    addResponse("Lỗi xử lý phản hồi!");
+                    addResponse("❌ Lỗi xử lý phản hồi API!");
                 }
             }
         });

@@ -1,12 +1,11 @@
 package com.example.smarthome.data.model;
 
 public class Message {
+    public static final String SEND_BY_ME = "me";
+    public static final String SEND_BY_BOT = "bot";
 
-    public static String SEND_BY_ME = "me";
-    public static String SEND_BY_BOT = "bot";
-
-    String message;
-    String sentBy;
+    private String message;
+    private String sentBy;
 
     public Message(String message, String sentBy) {
         this.message = message;
@@ -17,15 +16,7 @@ public class Message {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     public String getSentBy() {
         return sentBy;
     }
-
-    public void setSentBy(String sentBy) {
-        this.sentBy = sentBy;
-    }
-} // Message End Here =========
+}

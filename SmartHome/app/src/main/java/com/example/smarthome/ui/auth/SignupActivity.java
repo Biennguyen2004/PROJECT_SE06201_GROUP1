@@ -51,7 +51,6 @@ public class SignupActivity extends AppCompatActivity {
                 validateData();
             }
         });
-
     }
 
     private void validateData() {
