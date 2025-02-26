@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 @RestController
 @RequestMapping("/api/v1")
@@ -22,27 +25,44 @@ public class LoginApiController {
     UserServices userServices;
 
     @PostMapping("/user/login")
-    public ResponseEntity<?> authenticateUser(@RequestBody Login login) {
+    public ResponseEntity<Map<String, Object>> authenticateUser(@RequestBody Login login) {
+        Map<String, Object> response = new HashMap<>();
+
         // Kiểm tra email tồn tại
         List<String> userEmail = userServices.checkUserEmail(login.getEmail());
         if (userEmail.isEmpty()) {
-            return new ResponseEntity<>("Email does not exist", HttpStatus.NOT_FOUND);
+            response.put("error", "404");
+            response.put("message", "Email does not exist");
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
 
         // Kiểm tra mật khẩu
         String hashedPassword = userServices.checkUserPasswordByEmail(login.getEmail());
         if (hashedPassword == null || !BCrypt.checkpw(login.getPassword(), hashedPassword)) {
-            return new ResponseEntity<>("Incorrect username or password", HttpStatus.BAD_REQUEST);
+            response.put("error", "401");
+            response.put("message", "Incorrect username or password");
+            return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
         }
 
         // Lấy thông tin người dùng
         User user = userServices.getUserDetailsByEmail(login.getEmail());
         if (user == null) {
-            return new ResponseEntity<>("User details not found", HttpStatus.NOT_FOUND);
+            response.put("error", "404");
+            response.put("message", "User details not found");
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
 
-        // Trả về thông tin người dùng
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
+        // Trả về thông tin người dùng khi đăng nhập thành công
+        response.put("error", "200");
+        response.put("success", "Login successful");
+        response.put("user_id", user.getUser_id());
+        response.put("username", user.getUsername());
+        response.put("phone", user.getPhone());
+        response.put("email", user.getEmail());
+        response.put("created_at", user.getCreated_at());
+        response.put("updated_at", user.getUpdated_at());
 
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }
+
