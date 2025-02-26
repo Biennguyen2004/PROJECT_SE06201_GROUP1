@@ -2,6 +2,7 @@ package com.user_manager_v1.services;
 
 
 import com.user_manager_v1.models.User;
+import com.user_manager_v1.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

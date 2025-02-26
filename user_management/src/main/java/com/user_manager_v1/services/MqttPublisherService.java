@@ -1,4 +1,4 @@
-package com.user_manager_v1.repository;
+package com.user_manager_v1.services;
 
 import com.user_manager_v1.utils.SslUtil;
 import org.eclipse.paho.client.mqttv3.MqttClient;
