@@ -24,14 +24,14 @@ android {
     }
 
     buildTypes {
-        val properties = Properties()
-        val localPropertiesFile = project.rootProject.file("local.properties")
+        val properties = Properties() // giúp đọc các file properties
+        val localPropertiesFile = project.rootProject.file("local.properties") // lấy file này trong thư mục gốc
 
         if (localPropertiesFile.exists()) {
-            properties.load(FileInputStream(localPropertiesFile))
+            properties.load(FileInputStream(localPropertiesFile)) // sử dụng FileInputStream để đọc noi dugn file
         }
 
-        val apiKey = properties.getProperty("API_KEY") ?: "default_api_key"
+        val apiKey = properties.getProperty("API_KEY") ?: "" // nếu tìm thấy thì lấy key ko thì lấy null
 
         debug {
             buildConfigField("String", "API_KEY", "\"$apiKey\"")
@@ -80,5 +80,6 @@ dependencies {
 
     // Thư viện inLogcat
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
 
 }

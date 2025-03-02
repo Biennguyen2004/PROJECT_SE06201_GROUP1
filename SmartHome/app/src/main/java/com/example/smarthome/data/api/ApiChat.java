@@ -11,8 +11,11 @@ public class ApiChat {
 
 // ==================== Ẩn Key +++++++===========================
 
-//Đầu tiên thêm key vào local.properties
-//Sau đó vào build.gradle :app để config:
+//1.Đầu tiên thêm key vào local.properties: API_KEY=sk-proj
+
+
+//2. Sau đó vào build.gradle :app để config:
+
 //buildTypes {
 //    val properties = Properties()
 //    val localPropertiesFile = project.rootProject.file("local.properties")
@@ -36,3 +39,7 @@ public class ApiChat {
 //
 //        buildConfigField("String", "API_KEY", "\"$apiKey\"")
 //    }
+
+//3. rebuild
+
+//4

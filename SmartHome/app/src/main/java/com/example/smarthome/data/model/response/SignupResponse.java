@@ -3,7 +3,7 @@ package com.example.smarthome.data.model.response;
 public class SignupResponse {
 
     private String success;
-    private String error;
+    private int status;
 
     // Getter và Setter
     public String getSuccess() {
@@ -14,12 +14,12 @@ public class SignupResponse {
         this.success = success;
     }
 
-    public String getError() {
-        return error;
+    public int getStatus() {
+        return status;
     }
 
-    public void setError(String error) {
-        this.error = error;
+    public void setStatus(int error) {
+        this.status = error;
     }
 
 }

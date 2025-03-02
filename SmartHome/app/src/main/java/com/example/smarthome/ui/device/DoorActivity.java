@@ -48,6 +48,7 @@ public class DoorActivity extends AppCompatActivity {
     }
 
     private void toggleAutoMode() {
+
         boolean isAutoOn = btnToggleAuto.getText().toString().equals("Bật Auto");
 
         sendAutoModeRequest(isAutoOn);

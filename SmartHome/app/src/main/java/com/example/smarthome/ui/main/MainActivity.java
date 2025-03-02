@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         initUI();
-
-
     }
 
     private void initUI() {

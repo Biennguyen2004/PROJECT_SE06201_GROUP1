@@ -140,13 +140,13 @@ public class SignupActivity extends AppCompatActivity {
                     SignupResponse resp = response.body();
 
                     // Kiểm tra thông báo thành công
-                    if (resp != null && resp.getError().equals("200")) {
+                    if (resp != null && resp.getStatus() == 200) {
                         Toast.makeText(SignupActivity.this, "Register thành công", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
                         startActivity(intent);
                     } else {
                         // Xử lý các lỗi từ server nếu có
-                        Toast.makeText(SignupActivity.this, "Registration successful!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignupActivity.this, resp.getSuccess() , Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     // Xử lý khi response không thành công, ví dụ mã lỗi HTTP khác

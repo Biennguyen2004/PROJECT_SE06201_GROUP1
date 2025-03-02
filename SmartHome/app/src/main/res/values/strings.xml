@@ -2,6 +2,7 @@
     <string name="app_name">Smart Home</string>
     <string name="action_home">Home</string>
     <string name="action_assistant">Assistant</string>
+    <string name="action_logout">Assistant</string>
     <string name="action_setting">Setting</string>
 
 </resources>

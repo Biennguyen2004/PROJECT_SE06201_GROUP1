@@ -8,6 +8,7 @@
         android:id="@+id/action_assistant"
         android:icon="@drawable/icon_assistant_menu"
         android:title="@string/action_assistant" />
+
     <item
         android:id="@+id/action_setting"
         android:icon="@drawable/icon_settings_menu"

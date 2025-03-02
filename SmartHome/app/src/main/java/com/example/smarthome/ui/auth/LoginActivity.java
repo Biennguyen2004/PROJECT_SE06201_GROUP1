@@ -113,16 +113,18 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (response.isSuccessful()) {
                     LoginResponse loginResponse = response.body();
-                    if (loginResponse != null && "200".equals(loginResponse.getError())) {
+                    if (loginResponse != null && loginResponse.getStatusCode() == 200) {
                         // Xử lý đăng nhập thành công
                         Toast.makeText(LoginActivity.this, "login thành công", Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
+                        finish();
 
                     } else {
-                        // Xử lý lỗi khi đăng nhập không thành công
-                        Toast.makeText(LoginActivity.this, loginResponse.getError(), Toast.LENGTH_SHORT).show();
+                        // Kiểm tra nếu message bị null
+                        String errorMessage = loginResponse != null ? loginResponse.getMessage() : "Đăng nhập thất bại!";
+                        Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     // Xử lý khi response không thành công

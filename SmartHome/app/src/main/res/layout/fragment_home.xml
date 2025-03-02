@@ -122,7 +122,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
                             android:textAlignment="center"
-                            android:textColor="#7182ef"
+                            android:textColor="#FFBF00"
                             android:textStyle="bold"
                             android:text="0" />
                     </LinearLayout>
@@ -146,7 +146,6 @@
                             android:id="@+id/textView9"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
                             android:text="Gas"
                             android:textAlignment="center"
@@ -155,14 +154,13 @@
 
                         <TextView
                             android:id="@+id/tv_gas"
-                            android:layout_marginTop="8dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
                             android:textAlignment="center"
-                            android:textColor="#7182ef"
+                            android:textColor="#FFBF00"
                             android:textStyle="bold"
-                            android:text="9745" />
+                            android:text="368.00 ppm - Trung Bình" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -195,11 +193,10 @@
                             android:id="@+id/tv_display_water"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="13dp"
                             android:textAlignment="center"
-                            android:text="0 m"
-                            android:textColor="#7182ef"
+                            android:text="An toàn"
+                            android:textColor="#FFBF00"
                             android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
@@ -208,12 +205,14 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:layout_marginStart="40dp"
                 android:layout_marginEnd="40dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="15dp"
-                android:background="@drawable/home_banner_background">
+                android:elevation="4dp"
+                android:background="@drawable/white_top_buttons">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -229,11 +228,12 @@
                         android:background="@drawable/purple_top_buttons">
 
                         <TextView
+                            android:id="@+id/tv_humidity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginStart="10dp"
-                            android:text="nhiệt độ trong nhà"/>
+                            android:text="98"/>
 
                     </LinearLayout>
 
@@ -241,60 +241,164 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:layout_width="match_parent"
-                        android:layout_height="130dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@drawable/purple_top_buttons">
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="10dp"
-                            android:text="nhiệt độ Ngoài trời"/>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="5dp"
+                            android:background="@drawable/bg_weather">
+
+                            <TextView
+                                android:id="@+id/tv_city_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/urbanist"
+                                android:text="Hanoi"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginStart="15dp"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_temperature"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:fontFamily="@font/urbanist"
+                                android:text="26"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginStart="10dp"
+                                android:textColor="#FFBF00"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                android:layout_toEndOf="@+id/tv_city_name"/>
+
+                            <ImageView
+                                android:id="@+id/weatherIcon"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_below="@+id/tv_temperature"
+                                android:layout_centerHorizontal="true"
+                                android:elevation="12dp"
+                                android:src="@drawable/sun"
+                                android:contentDescription="Weather Icon"
+                                />
+
+                            <TextView
+                                android:id="@+id/tv_des"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/weatherIcon"
+                                android:text="Sunny"
+                                android:textSize="12sp"
+                                android:textColor="@color/white"
+                                android:layout_centerHorizontal="true"/>
+
+
+                            <LinearLayout
+                                android:layout_marginTop="5dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center"
+                                android:background="@drawable/bg_weather2"
+                                android:layout_below="@+id/tv_des">
+
+                                <LinearLayout
+                                    android:id="@+id/humidityLayout"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:layout_weight="0.5"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:id="@+id/himidityIcon"
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/humidity"/>
+
+                                    <TextView
+                                        android:id="@+id/tv_humidity"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="60%"
+                                        android:textSize="10sp"
+                                        android:textStyle="bold"
+                                        android:layout_gravity="center"
+                                        android:textColor="@color/white"
+                                        android:fontFamily="@font/urbanist"/>
+
+                                    <TextView
+                                        android:id="@+id/tv_"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Humidity"
+                                        android:textSize="10sp"
+                                        android:layout_gravity="center"
+                                        android:textColor="@color/white"
+                                        android:fontFamily="@font/urbanist"/>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/windLayout"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:layout_weight="0.5"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:id="@+id/windIcon"
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/wind"/>
+
+                                    <TextView
+                                        android:id="@+id/tv_wind"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="10 km/h"
+                                        android:textSize="10sp"
+                                        android:textStyle="bold"
+                                        android:layout_gravity="center"
+                                        android:textColor="@color/white"
+                                        android:fontFamily="@font/urbanist"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Wind"
+                                        android:textSize="10sp"
+                                        android:layout_gravity="center"
+                                        android:textColor="@color/white"
+                                        android:fontFamily="@font/urbanist"/>
+
+                                </LinearLayout>
+                            </LinearLayout>
+
+
+                        </RelativeLayout>
+
+
+
+
+
 
                     </LinearLayout>
 
 
                 </LinearLayout>
 
-
-
-
-<!--                <ImageView-->
-<!--                    android:id="@+id/imageView6"-->
-<!--                    android:layout_width="200dp"-->
-<!--                    android:layout_height="100dp"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    app:layout_constraintVertical_bias="0.5"-->
-<!--                    app:srcCompat="@drawable/logo" />-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/textView8"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Thời Tiết Hôm Nay"-->
-<!--                    android:layout_marginStart="15dp"-->
-<!--                    android:textSize="16sp"-->
-<!--                    android:textColor="#ffffff"-->
-<!--                    android:textStyle="bold"-->
-<!--                    app:layout_constraintEnd_toStartOf="@+id/imageView6"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="@+id/imageView6" />-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/textView10"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="37 C"-->
-<!--                    android:textColor="#ffffff"-->
-<!--                    android:textStyle="bold"-->
-<!--                    android:textSize="16sp"-->
-<!--                    app:layout_constraintBottom_toBottomOf="@+id/imageView6"-->
-<!--                    app:layout_constraintEnd_toEndOf="@+id/textView8"-->
-<!--                    app:layout_constraintStart_toStartOf="@+id/textView8"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/textView8" />-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -323,18 +427,19 @@
                             android:background="@drawable/white_top_buttons">
 
                             <ImageView
-                                android:id="@+id/img_light"
+                                android:id="@+id/img_door"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:layout_marginStart="16dp"
                                 android:layout_marginTop="16dp"
                                 android:layout_marginEnd="16dp"
+                                android:tint="#007AFF"
                                 android:layout_marginBottom="16dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/ic_light" />
+                                app:srcCompat="@drawable/ic_door" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <TextView
@@ -342,7 +447,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="Light"
+                            android:text="Door"
                             android:textAlignment="center"
                             android:textColor="#2e3d6d"
                             android:textSize="14sp"
@@ -369,45 +474,7 @@
                                 android:layout_height="40dp"
                                 android:layout_marginStart="16dp"
                                 android:layout_marginTop="16dp"
-                                android:layout_marginEnd="16dp"
-                                android:layout_marginBottom="16dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/ic_light" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <TextView
-                            android:id="@+id/textView111"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="Light"
-                            android:textAlignment="center"
-                            android:textColor="#2e3d6d"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/white_top_buttons">
-
-                            <ImageView
-                                android:id="@+id/imageView71"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginTop="16dp"
+                                android:tint="#007AFF"
                                 android:layout_marginEnd="16dp"
                                 android:layout_marginBottom="16dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -447,13 +514,14 @@
                                 android:layout_height="40dp"
                                 android:layout_marginStart="16dp"
                                 android:layout_marginTop="16dp"
+                                android:tint="#007AFF"
                                 android:layout_marginEnd="16dp"
                                 android:layout_marginBottom="16dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/ic_light" />
+                                app:srcCompat="@drawable/ic_fan" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <TextView
@@ -461,7 +529,47 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="Light"
+                            android:text="Fan"
+                            android:textAlignment="center"
+                            android:textColor="#2e3d6d"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/white_top_buttons">
+
+                            <ImageView
+                                android:id="@+id/imageView71"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_marginBottom="16dp"
+                                android:tint="#007AFF"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/ic_tv" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:id="@+id/textView111"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="TV"
                             android:textAlignment="center"
                             android:textColor="#2e3d6d"
                             android:textSize="14sp"
@@ -470,9 +578,11 @@
 
                 </LinearLayout>
 
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -482,31 +592,75 @@
                         android:orientation="vertical">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
                             android:background="@drawable/white_top_buttons">
 
                             <ImageView
-                                android:id="@+id/imageView75"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:id="@+id/img_air"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
                                 android:layout_marginStart="16dp"
                                 android:layout_marginTop="16dp"
                                 android:layout_marginEnd="16dp"
+                                android:tint="#007AFF"
                                 android:layout_marginBottom="16dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/ic_6" />
+                                app:srcCompat="@drawable/ic_air" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <TextView
-                            android:id="@+id/textView115"
+                            android:id="@+id/textView111"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="Thiết Bị 1"
+                            android:text="Air conditioning"
+                            android:textAlignment="center"
+                            android:textColor="#2e3d6d"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/white_top_buttons">
+
+                            <ImageView
+                                android:id="@+id/imageView71"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_marginBottom="16dp"
+                                android:tint="#007AFF"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/ic_motorbike" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:id="@+id/textView111"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Motorbike"
                             android:textAlignment="center"
                             android:textColor="#2e3d6d"
                             android:textSize="14sp"
@@ -520,31 +674,33 @@
                         android:orientation="vertical">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
                             android:background="@drawable/white_top_buttons">
 
                             <ImageView
-                                android:id="@+id/imageView76"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:id="@+id/imageView71"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
                                 android:layout_marginStart="16dp"
                                 android:layout_marginTop="16dp"
                                 android:layout_marginEnd="16dp"
                                 android:layout_marginBottom="16dp"
+                                android:tint="#007AFF"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/ic_7" />
+                                app:srcCompat="@drawable/ic_car" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <TextView
-                            android:id="@+id/textView116"
+                            android:id="@+id/textView111"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="Thiết Bị 1"
+                            android:text="Car"
                             android:textAlignment="center"
                             android:textColor="#2e3d6d"
                             android:textSize="14sp"
@@ -558,52 +714,15 @@
                         android:orientation="vertical">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
                             android:background="@drawable/white_top_buttons">
 
                             <ImageView
-                                android:id="@+id/imageView77"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginTop="16dp"
-                                android:layout_marginEnd="16dp"
-                                android:layout_marginBottom="16dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/ic_1" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <TextView
-                            android:id="@+id/textView117"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="Thiết Bị 1"
-                            android:textAlignment="center"
-                            android:textColor="#2e3d6d"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/white_top_buttons">
-
-                            <ImageView
-                                android:id="@+id/imageView7"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:id="@+id/imageView71"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
                                 android:layout_marginStart="16dp"
                                 android:layout_marginTop="16dp"
                                 android:layout_marginEnd="16dp"
@@ -616,16 +735,17 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <TextView
-                            android:id="@+id/textView11"
+                            android:id="@+id/textView111"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="Thiết Bị 1"
+                            android:text="Add new"
                             android:textAlignment="center"
                             android:textColor="#2e3d6d"
                             android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
+
                 </LinearLayout>
             </LinearLayout>
 

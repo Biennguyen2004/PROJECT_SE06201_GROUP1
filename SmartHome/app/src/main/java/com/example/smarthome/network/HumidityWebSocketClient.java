@@ -4,16 +4,16 @@ import android.util.Log;
 import okhttp3.*;
 import org.json.JSONObject;
 
-public class WaterWebSocketClient {
-    private static final String TAG = "WaterWebSocket";
-    private static final String WEBSOCKET_URL = "wss://bae4-2001-ee0-40e1-9178-89cc-15a5-152e-b1.ngrok-free.app/ws/sensor/water";
+public class HumidityWebSocketClient {
+    private static final String TAG = "HumidityWebSocket";
+    private static final String WEBSOCKET_URL = "wss://bae4-2001-ee0-40e1-9178-89cc-15a5-152e-b1.ngrok-free.app/ws/sensor/humidity";
     private WebSocket webSocket;
-    private WaterWebSocketListener listener;
+    private HumidityWebSocketListener listener;
 
     private static final int MAX_RETRY = 5;
     private int retryCount = 0;
 
-    public WaterWebSocketClient(WaterWebSocketListener listener) {
+    public HumidityWebSocketClient(HumidityWebSocketListener listener) {
         this.listener = listener;
         connectWebSocket();
     }
@@ -24,8 +24,7 @@ public class WaterWebSocketClient {
         webSocket = client.newWebSocket(request, new WebSocketListener() {
             @Override
             public void onOpen(WebSocket webSocket, Response response) {
-                Log.d(TAG, "WebSocket Connected water");
-                retryCount = 0; // Reset lại số lần thử lại khi kết nối thành công
+                Log.d(TAG, "WebSocket Connected Humidity");
             }
 
             @Override
@@ -33,20 +32,15 @@ public class WaterWebSocketClient {
                 try {
                     JSONObject jsonObject = new JSONObject(text);
 
-                    // Kiểm tra nếu JSON có chứa key "water_detected"
-                    if (jsonObject.has("water_detected")) {
-                        boolean waterDetected = jsonObject.getBoolean("water_detected");
-                        String status = jsonObject.optString("status", "Không xác định");
+                    if (jsonObject.has("humidity_value")) {
+                        double humidityValue = jsonObject.getDouble("humidity_value");
+                        String status = calculateHumidityStatus(humidityValue);
 
-                        // Chuyển đổi trạng thái
-                        String waterStatus = waterDetected ? "Có rò rỉ nước" : "Không có rò rỉ";
-
-                        // Gửi dữ liệu về listener
                         if (listener != null) {
-                            listener.onWaterDataReceived(waterStatus);
+                            listener.onHumidityDataReceived(humidityValue, status);
                         }
                     } else {
-                        Log.e(TAG, "Invalid JSON: missing 'water_detected' field");
+                        Log.e(TAG, "Invalid JSON: Missing 'humidity_value' field");
                     }
 
                 } catch (Exception e) {
@@ -71,8 +65,18 @@ public class WaterWebSocketClient {
         });
     }
 
-    public interface WaterWebSocketListener {
-        void onWaterDataReceived(String status);
+    private String calculateHumidityStatus(double humidityValue) {
+        if (humidityValue > 80) {
+            return "Cao";
+        } else if (humidityValue >= 50) {
+            return "Trung bình";
+        } else {
+            return "Thấp";
+        }
+    }
+
+    public interface HumidityWebSocketListener {
+        void onHumidityDataReceived(double humidityValue, String status);
     }
 
     public void closeWebSocket() {
