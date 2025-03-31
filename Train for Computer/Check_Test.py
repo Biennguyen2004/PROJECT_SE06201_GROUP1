@@ -10,7 +10,7 @@ data_file = "C:/Users/TungHoi/Desktop/Training AI/known_faces.pkl"
 
 
 # Hàm huấn luyện và lưu dữ liệu
-def train_and_save():
+def train_and_save(): 
     known_faces = []
     known_names = []
 
