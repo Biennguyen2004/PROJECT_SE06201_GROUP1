@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,11 +23,18 @@ public class SettingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
 
         // lấy button trong xml
-        Button btnGoToActivity = view.findViewById(R.id.btnGoToActivity);
+        ImageView imgLogout = view.findViewById(R.id.img_logout);
+        ImageView imgBack = view.findViewById(R.id.img_backh);
+
 
         // bắt sự kiện click
-        btnGoToActivity.setOnClickListener(v -> {
+        imgLogout.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), IntroActivity.class);
+            startActivity(intent);
+        });
+
+        imgBack.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), MainActivity.class);
             startActivity(intent);
         });
 

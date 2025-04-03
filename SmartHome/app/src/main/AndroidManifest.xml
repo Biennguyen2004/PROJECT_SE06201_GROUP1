@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <!-- Quyền sử dụng Internet và kiểm tra mạng -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Quyền ghi âm -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- Quyền lưu file -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -16,30 +18,34 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartHome">
 
-        <!-- Main Activity (ứng dụng khởi chạy từ đây) -->
+        <activity
+            android:name=".ui.main.MicActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.device.LightActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.device.FanActivity"
+            android:exported="false" /> <!-- Main Activity (ứng dụng khởi chạy từ đây) -->
         <activity
             android:name=".ui.main.MainActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Giới thiệu ứng dụng -->
+        </activity> <!-- Giới thiệu ứng dụng -->
         <activity
             android:name=".ui.intro.IntroActivity"
-            android:exported="true"/>
-
-        <!-- Đăng nhập & Đăng ký -->
+            android:exported="true" /> <!-- Đăng nhập & Đăng ký -->
         <activity
             android:name=".ui.auth.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".ui.auth.SignupActivity"
-            android:exported="false" />
-
-        <!-- Điều khiển thiết bị (chỉ nội bộ) -->
+            android:exported="false" /> <!-- Điều khiển thiết bị (chỉ nội bộ) -->
         <activity
             android:name=".ui.device.DoorActivity"
             android:exported="false" />
@@ -47,7 +53,6 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
     </application>
 
 </manifest>

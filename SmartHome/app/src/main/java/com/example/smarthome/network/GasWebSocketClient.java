@@ -7,7 +7,7 @@ import org.json.JSONObject;
 
 public class GasWebSocketClient {
     private static final String TAG = "GasSocket";
-    private static final String WEBSOCKET_URL = "wss://bae4-2001-ee0-40e1-9178-89cc-15a5-152e-b1.ngrok-free.app/ws/sensor/gas";
+    private static final String WEBSOCKET_URL = "wss://8e1c-118-70-118-224.ngrok-free.app/ws/sensor/gas";
     private WebSocket webSocket;
     private GasWebSocketListener listener;
     private OkHttpClient client;

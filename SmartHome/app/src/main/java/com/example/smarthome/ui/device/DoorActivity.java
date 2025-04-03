@@ -1,22 +1,22 @@
 package com.example.smarthome.ui.device;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.activity.EdgeToEdge;
 
 import com.example.smarthome.R;
 import com.example.smarthome.data.api.ApiClient;
 import com.example.smarthome.data.api.ApiService;
 import com.example.smarthome.data.model.request.DoorAutoRequest;
 import com.example.smarthome.data.model.request.DoorControlRequest;
-import com.example.smarthome.data.model.response.DoorResponse;
+import com.example.smarthome.data.model.response.DeviceResponse;
+import com.example.smarthome.ui.main.MainActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,153 +24,94 @@ import retrofit2.Response;
 
 public class DoorActivity extends AppCompatActivity {
 
-    private Button btnToggleAuto;
-    private Button btnMoDongCua;
+    private Switch switchDoor, switchAutoDoor;
+    private ImageView imgBack;
     private ProgressBar progressBar;
     private ApiService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_door);
+        setContentView(R.layout.activity_door); // Giao diện mới bạn gửi trước đó
 
-        btnToggleAuto = findViewById(R.id.button); // Nút Auto Mode
-
-        btnMoDongCua = findViewById(R.id.button2); // Nút mở và đóng cửa
-
-        progressBar = findViewById(R.id.progressBar);
+        // Ánh xạ các view từ XML mới
+        switchDoor = findViewById(R.id.switchDoor_on_off);
+        switchAutoDoor = findViewById(R.id.switchDoor_auto);
+        imgBack = findViewById(R.id.img_back_home_fan);
+        progressBar = new ProgressBar(this); // Hoặc bạn có thể thêm progressBar vào XML
 
         apiService = ApiClient.getInstance().getApiService();
 
-        btnToggleAuto.setOnClickListener(view -> toggleAutoMode());
-        btnMoDongCua.setOnClickListener(view -> toggleMoDongCua());
-    }
-
-    private void toggleAutoMode() {
-
-        boolean isAutoOn = btnToggleAuto.getText().toString().equals("Bật Auto");
-
-        sendAutoModeRequest(isAutoOn);
-    }
-
-    private void toggleMoDongCua() {
-        boolean isMoDongCua = btnMoDongCua.getText().toString().equals("Mở Cửa");
-
-        sendRequestAPI(isMoDongCua);
-    }
-
-    private void sendRequestAPI(boolean isMoDongCua) {
-
-        btnToggleAuto.setEnabled(false);
-        progressBar.setVisibility(View.VISIBLE); // Hiển thị ProgressBar
-
-        Call<DoorResponse> call = apiService.controlDoor(new DoorControlRequest(isMoDongCua));
-        call.enqueue(new Callback<DoorResponse>() {
-            @Override
-            public void onResponse(Call<DoorResponse> call, Response<DoorResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-
-                    btnToggleAuto.setEnabled(true);
-                    progressBar.setVisibility(View.GONE); // Ẩn ProgressBar sau khi API trả về
-
-                    Toast.makeText(DoorActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
-                    updateDongMoCuaButton(isMoDongCua);
-                } else {
-                    try {
-                        // Lấy dữ liệu từ response lỗi
-                        String errorBody = response.errorBody().string();
-                        Toast.makeText(DoorActivity.this, "Lỗi API: " + errorBody, Toast.LENGTH_LONG).show();
-                        Log.e("API_ERROR", "Response: " + errorBody);
-                    } catch (Exception e) {
-                        Toast.makeText(DoorActivity.this, "Lỗi chế độ Auto!", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<DoorResponse> call, Throwable t) {
-                btnToggleAuto.setEnabled(true);
-                progressBar.setVisibility(View.GONE); // Ẩn ProgressBar khi gặp lỗi
-
-                if (t instanceof java.net.UnknownHostException) {
-                    Toast.makeText(DoorActivity.this, "Không có kết nối mạng!", Toast.LENGTH_LONG).show();
-                } else if (t instanceof java.net.SocketTimeoutException) {
-                    Toast.makeText(DoorActivity.this, "Kết nối đến server bị timeout!", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(DoorActivity.this, "Lỗi: " + t.getMessage(), Toast.LENGTH_LONG).show();
-                }
-                Log.e("API_ERROR", "Lỗi khi gọi API", t);
-            }
+        // Sự kiện bật/tắt cửa
+        switchDoor.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            switchDoor.setEnabled(false);
+            progressBar.setVisibility(View.VISIBLE);
+            controlDoor(isChecked);
         });
 
+        // Sự kiện bật/tắt auto
+        switchAutoDoor.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            switchAutoDoor.setEnabled(false);
+            progressBar.setVisibility(View.VISIBLE);
+            controlAutoDoor(isChecked);
+        });
+
+        // Sự kiện quay về màn hình chính
+        imgBack.setOnClickListener(v -> {
+            startActivity(new Intent(DoorActivity.this, MainActivity.class));
+            finish();
+        });
     }
 
-    private void updateDongMoCuaButton(boolean isMoDongCua) {
-        if (isMoDongCua) {
-            btnMoDongCua.setText("Đóng Cửa");
-            btnMoDongCua.setBackgroundColor(ContextCompat.getColor(this, R.color.colorOff));
-        } else {
-            btnMoDongCua.setText("Mở Cửa");
-            btnMoDongCua.setBackgroundColor(ContextCompat.getColor(this, R.color.colorOn));
-        }
-    }
-
-
-
-    private void sendAutoModeRequest(boolean status) {
-
-        btnToggleAuto.setEnabled(false);
-        progressBar.setVisibility(View.VISIBLE); // Hiển thị ProgressBar
-
-        Call<DoorResponse> call = apiService.setAutoDoor(new DoorAutoRequest(status));
-        call.enqueue(new Callback<DoorResponse>() {
+    private void controlDoor(boolean open) {
+        Call<DeviceResponse> call = apiService.controlDoor(new DoorControlRequest(open));
+        call.enqueue(new Callback<DeviceResponse>() {
             @Override
-            public void onResponse(Call<DoorResponse> call, Response<DoorResponse> response) {
+            public void onResponse(Call<DeviceResponse> call, Response<DeviceResponse> response) {
+                progressBar.setVisibility(View.GONE);
+                switchDoor.setEnabled(true);
+
                 if (response.isSuccessful() && response.body() != null) {
-
-                    btnToggleAuto.setEnabled(true);
-                    progressBar.setVisibility(View.GONE); // Ẩn ProgressBar sau khi API trả về
-
-                    Toast.makeText(DoorActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
-                    updateAutoButton(status);
+                    Toast.makeText(DoorActivity.this, open ? "Mở cửa thành công" : "Đóng cửa thành công", Toast.LENGTH_SHORT).show();
                 } else {
-                    try {
-                        // Lấy dữ liệu từ response lỗi
-                        String errorBody = response.errorBody().string();
-                        Toast.makeText(DoorActivity.this, "Lỗi API: " + errorBody, Toast.LENGTH_LONG).show();
-                        Log.e("API_ERROR", "Response: " + errorBody);
-                    } catch (Exception e) {
-                        Toast.makeText(DoorActivity.this, "Lỗi chế độ Auto!", Toast.LENGTH_SHORT).show();
-                    }
+                    Toast.makeText(DoorActivity.this, "Lỗi khi điều khiển cửa!", Toast.LENGTH_SHORT).show();
+                    switchDoor.setChecked(!open); // revert trạng thái
                 }
             }
 
             @Override
-            public void onFailure(Call<DoorResponse> call, Throwable t) {
-
-                btnToggleAuto.setEnabled(true);
-                progressBar.setVisibility(View.GONE); // Ẩn ProgressBar khi gặp lỗi
-
-                if (t instanceof java.net.UnknownHostException) {
-                    Toast.makeText(DoorActivity.this, "Không có kết nối mạng!", Toast.LENGTH_LONG).show();
-                } else if (t instanceof java.net.SocketTimeoutException) {
-                    Toast.makeText(DoorActivity.this, "Kết nối đến server bị timeout!", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(DoorActivity.this, "Lỗi: " + t.getMessage(), Toast.LENGTH_LONG).show();
-                }
-                Log.e("API_ERROR", "Lỗi khi gọi API", t);
+            public void onFailure(Call<DeviceResponse> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+                switchDoor.setEnabled(true);
+                switchDoor.setChecked(!open);
+                Toast.makeText(DoorActivity.this, "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void updateAutoButton(boolean isAutoOn) {
-        if (isAutoOn) {
-            btnToggleAuto.setText("Tắt Auto");
-            btnToggleAuto.setBackgroundColor(ContextCompat.getColor(this, R.color.colorOff));
-        } else {
-            btnToggleAuto.setText("Bật Auto");
-            btnToggleAuto.setBackgroundColor(ContextCompat.getColor(this, R.color.colorOn));
-        }
+    private void controlAutoDoor(boolean autoMode) {
+        Call<DeviceResponse> call = apiService.setAutoDoor(new DoorAutoRequest(autoMode));
+        call.enqueue(new Callback<DeviceResponse>() {
+            @Override
+            public void onResponse(Call<DeviceResponse> call, Response<DeviceResponse> response) {
+                progressBar.setVisibility(View.GONE);
+                switchAutoDoor.setEnabled(true);
+
+                if (response.isSuccessful() && response.body() != null) {
+                    Toast.makeText(DoorActivity.this, autoMode ? "Bật chế độ Auto" : "Tắt chế độ Auto", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(DoorActivity.this, "Lỗi khi điều khiển chế độ Auto!", Toast.LENGTH_SHORT).show();
+                    switchAutoDoor.setChecked(!autoMode);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DeviceResponse> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+                switchAutoDoor.setEnabled(true);
+                switchAutoDoor.setChecked(!autoMode);
+                Toast.makeText(DoorActivity.this, "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

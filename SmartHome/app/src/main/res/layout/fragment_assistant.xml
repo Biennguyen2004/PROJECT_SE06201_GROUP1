@@ -7,13 +7,18 @@
     android:background="@android:color/white">
 
     <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
+        android:layout_width="450dp"
         android:layout_height="wrap_content"
         android:id="@+id/toolbar"
-        android:background="@android:color/white"
         android:elevation="4dp"
+        android:padding="10dp"
+        app:titleTextAppearance="@style/ToolbarTitleStyle"
+        android:background="@drawable/toolbar_gradient"
         app:title="ChatAI Assistant"
+        app:subtitle="Ask any questions regarding your home...!"
+        app:subtitleTextColor="@android:color/white"
         />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@id/toolbar"
@@ -52,5 +57,7 @@
             android:src="@drawable/ic_send" />
 
     </RelativeLayout>
+
+
 
 </RelativeLayout>

@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 public class WaterWebSocketClient {
     private static final String TAG = "WaterWebSocket";
-    private static final String WEBSOCKET_URL = "wss://bae4-2001-ee0-40e1-9178-89cc-15a5-152e-b1.ngrok-free.app/ws/sensor/water";
+    private static final String WEBSOCKET_URL = "wss://8e1c-118-70-118-224.ngrok-free.app/ws/sensor/water";
     private WebSocket webSocket;
     private WaterWebSocketListener listener;
 

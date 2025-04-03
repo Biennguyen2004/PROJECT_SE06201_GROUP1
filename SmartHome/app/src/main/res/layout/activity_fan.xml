@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:background="#D8F6E3"
+            android:background="#DFEFD0"
             android:orientation="vertical">
 
             <!-- Ảnh nền -->
@@ -20,10 +20,10 @@
             <!-- Nền trắng bo cong -->
             <ImageView
                 android:id="@+id/imageView6"
-                android:layout_width="400dp"
-                android:layout_height="500dp"
+                android:layout_width="wrap_content"
+                android:layout_height="440dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/img_door1" />
+                android:src="@drawable/img_plant1" />
 
             <LinearLayout
                 android:layout_margin="10dp"
@@ -48,7 +48,7 @@
                     android:textStyle="bold"
                     android:layout_marginBottom="10dp"
                     android:textColor="@color/black"
-                    android:text="Automatic door" />
+                    android:text="Fan Control" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -61,7 +61,7 @@
                         android:id="@+id/img_back_h"
                         android:layout_width="wrap_content"
                         android:layout_height="100dp"
-                        android:src="@drawable/ic_automatic_doors"/>
+                        android:src="@drawable/ic_fan_controll"/>
 
                 </LinearLayout>
 
@@ -77,10 +77,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="30dp"
-                        android:text="Door"/>
+                        android:text="Fan"/>
 
                     <Switch
-                        android:id="@+id/switchDoor_on_off"
+                        android:id="@+id/switchLight_on_off"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
@@ -104,7 +104,7 @@
                         android:text="Auto"/>
 
                     <Switch
-                        android:id="@+id/switchDoor_auto"
+                        android:id="@+id/switchLight_auto"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"

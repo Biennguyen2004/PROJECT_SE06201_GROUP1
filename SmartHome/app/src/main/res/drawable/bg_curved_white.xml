@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="360dp"
+    android:height="240dp"
+    android:viewportWidth="360"
+    android:viewportHeight="240">
+
+    <!-- Nền trắng có xiết cong -->
+    <path
+        android:fillColor="#FFF8FC"
+        android:pathData="M0,0 L0,240 L360,240 Q340,120 0,180 Z" />
+</vector>

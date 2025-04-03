@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -76,6 +77,7 @@ public class AssistantFragment extends Fragment {
             }
         });
 
+
         return view;
     }
 
@@ -101,30 +103,30 @@ public class AssistantFragment extends Fragment {
 
     private void callAPI(String question) {
         if (ApiChat.API_KEY == null || ApiChat.API_KEY.isEmpty()) {
-            addResponse("🚨 API key is missing!");
+            addResponse("API key is missing!");
             return;
         }
 
-        messageList.add(new Message("✍️ AI đang soạn tin...", Message.SEND_BY_BOT));
+        messageList.add(new Message("✍AI đang soạn tin...", Message.SEND_BY_BOT));
 
         JSONObject jsonBody = new JSONObject();
         try {
-            jsonBody.put("model", "gpt-4o"); // ✅ Sử dụng model phù hợp
+            jsonBody.put("model", "gpt-4o"); // Sử dụng model phù hợp
             JSONArray messagesArray = new JSONArray();
             messagesArray.put(new JSONObject().put("role", "system").put("content", "Bạn là một trợ lý thông minh."));
             messagesArray.put(new JSONObject().put("role", "user").put("content", question));
 
-            jsonBody.put("messages", messagesArray); // ✅ Dùng đúng định dạng
+            jsonBody.put("messages", messagesArray); // Dùng đúng định dạng
             jsonBody.put("max_tokens", 200);
             jsonBody.put("temperature", 0.7);
         } catch (JSONException e) {
-            addResponse("❌ Lỗi tạo request JSON!");
+            addResponse("Lỗi tạo request JSON!");
             return;
         }
 
         RequestBody requestBody = RequestBody.create(jsonBody.toString(), JSON);
         Request request = new Request.Builder()
-                .url(ApiChat.API_URL) // ✅ Đảm bảo API URL đúng
+                .url(ApiChat.API_URL) // Đảm bảo API URL đúng
                 .header("Authorization", "Bearer " + ApiChat.API_KEY)
                 .header("Content-Type", "application/json")
                 .post(requestBody)
@@ -133,7 +135,7 @@ public class AssistantFragment extends Fragment {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                addResponse("❌ Lỗi kết nối: " + e.getMessage());
+                addResponse("Lỗi kết nối: " + e.getMessage());
             }
 
             @Override
@@ -141,7 +143,7 @@ public class AssistantFragment extends Fragment {
                 requireActivity().runOnUiThread(() -> send_btn.setEnabled(true)); // Bật lại nút gửi
 
                 if (!response.isSuccessful() || response.body() == null) {
-                    addResponse("⚠️ Lỗi server: " + response.code());
+                    addResponse("Lỗi server: " + response.code());
                     return;
                 }
 
@@ -152,7 +154,6 @@ public class AssistantFragment extends Fragment {
                     if (jsonObject.has("error")) {
                         JSONObject error = jsonObject.getJSONObject("error");
                         String errorMessage = error.getString("message");
-                        addResponse("⚠️ Lỗi API: " + errorMessage);
                         return;
                     }
 
@@ -160,7 +161,7 @@ public class AssistantFragment extends Fragment {
                     String result = choices.getJSONObject(0).getJSONObject("message").getString("content").trim();
                     addResponse(result);
                 } catch (JSONException e) {
-                    addResponse("❌ Lỗi xử lý phản hồi API!");
+                    addResponse("Lỗi xử lý phản hồi API!");
                 }
             }
         });

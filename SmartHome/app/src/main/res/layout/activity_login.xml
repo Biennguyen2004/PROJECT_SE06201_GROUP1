@@ -19,7 +19,7 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/login_background_bottom"
         android:orientation="vertical"
         android:padding="32dp"

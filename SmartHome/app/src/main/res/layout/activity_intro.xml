@@ -10,12 +10,12 @@
     <ImageView
         android:id="@+id/imageView8"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="280dp"
         android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/smart_city" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -133,7 +133,7 @@
         android:layout_height="wrap_content"
         android:text="Wellcom To The My SmartHome"
         android:textColor="#ffffff"
-        android:textSize="40sp"
+        android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout5"
         app:layout_constraintStart_toStartOf="@+id/constraintLayout3"

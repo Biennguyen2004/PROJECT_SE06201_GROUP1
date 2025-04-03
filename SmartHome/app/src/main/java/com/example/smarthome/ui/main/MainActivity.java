@@ -2,6 +2,7 @@ package com.example.smarthome.ui.main;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;

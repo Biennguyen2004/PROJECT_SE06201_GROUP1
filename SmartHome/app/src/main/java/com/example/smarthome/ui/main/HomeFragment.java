@@ -22,6 +22,9 @@ import com.example.smarthome.network.GasWebSocketClient;
 import com.example.smarthome.network.HumidityWebSocketClient;
 import com.example.smarthome.network.WaterWebSocketClient;
 import com.example.smarthome.ui.device.DoorActivity;
+import com.example.smarthome.ui.device.FanActivity;
+import com.example.smarthome.ui.device.LightActivity;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,10 +41,12 @@ public class HomeFragment extends Fragment implements GasWebSocketClient.GasWebS
 
     private View mView;
 
-    private ImageView imgDoor;
 
+
+    // ===================== Hiển thị =====================
     // gas
     private TextView tvGas;
+    private TextView tvGasLevel;
     private GasWebSocketClient gasWebSocketClient;
 
     // water
@@ -52,10 +57,19 @@ public class HomeFragment extends Fragment implements GasWebSocketClient.GasWebS
     private TextView tvHumidity;
     private HumidityWebSocketClient humidityWebSocketClient;
 
+    // ===================== Điều khiển =====================
+    // cửa
+    private ImageView imgDoor;
+    // quat
+    private ImageView imgFan;
+    // đèn
+    private ImageView imgLight;
+
     // thời tiết
     private TextView cityNameText, temperatureText, humidityText, descriptionText, windText;
     private ImageView weatherIcon;
     private static final String API_KEY = "f2583b0aa73fb5c781f2a9d138300e73";
+
 
     @Nullable
     @Override
@@ -63,15 +77,17 @@ public class HomeFragment extends Fragment implements GasWebSocketClient.GasWebS
         mView = inflater.inflate(R.layout.fragment_home, container, false);
 
         // ====== Hiển thị ======
-        DisplayGas();
+//        DisplayGas();
+//
+//        DisplayWater();
+//
+//        DisplayHumidity();
+//
+//        DisplayBreakin();
+//
+//        DisplayWeather();
 
-        DisplayWater();
 
-        DisplayHumidity();
-
-        DisplayBreakin();
-
-        DisplayWeather();
 
         // ===== Điều khiển thiet bị ====
 
@@ -149,18 +165,48 @@ public class HomeFragment extends Fragment implements GasWebSocketClient.GasWebS
     // điều khiển quạt
     private void fanControl() {
 
+        imgFan = mView.findViewById(R.id.img_fan);
 
+        imgFan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleFan();
+            }
+        });
+
+    }
+
+    private void handleFan() {
+
+        Intent intentFan = new Intent(getActivity(), FanActivity.class);
+        startActivity(intentFan);
 
     }
 
     // điều khiển đèn
     private void lightControl() {
+
+        imgLight = mView.findViewById(R.id.img_light);
+
+        imgLight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleLight();
+            }
+        });
+    }
+
+    private void handleLight() {
+
+        Intent intent = new Intent(getActivity(), LightActivity.class);
+        startActivity(intent);
+
     }
 
     // Hiển thị độ ẩm
     private void DisplayHumidity() {
 
-        tvHumidity = mView.findViewById(R.id.tv_humidity);
+        tvHumidity = mView.findViewById(R.id.tv_humidity_house);
 
         if (humidityWebSocketClient == null) {
             humidityWebSocketClient = new HumidityWebSocketClient(this);
@@ -192,6 +238,8 @@ public class HomeFragment extends Fragment implements GasWebSocketClient.GasWebS
 
     private void DisplayWater() {
 
+        tvWater = mView.findViewById(R.id.tv_water);
+
         if (waterWebSocketClient == null) {
             waterWebSocketClient = new WaterWebSocketClient(this);
         }
@@ -201,6 +249,8 @@ public class HomeFragment extends Fragment implements GasWebSocketClient.GasWebS
     private void DisplayGas() {
 
         tvGas = mView.findViewById(R.id.tv_gas);
+        tvGasLevel = mView.findViewById(R.id.tv_gas_level);
+
 
         if (gasWebSocketClient == null) {  // Chỉ tạo nếu chưa tồn tại
             gasWebSocketClient = new GasWebSocketClient(this);
@@ -211,7 +261,8 @@ public class HomeFragment extends Fragment implements GasWebSocketClient.GasWebS
     @Override
     public void onGasDataReceived(double gasLevel, String status) {
         requireActivity().runOnUiThread(() -> {
-            tvGas.setText(String.format("%.2f ppm - %s", gasLevel, status));
+            tvGas.setText(String.format("%.2f ppm", gasLevel));
+            tvGasLevel.setText(String.format("%s", status));
 
             // Kiểm tra nếu khí gas vượt ngưỡng
             if (gasLevel > 1000) {
@@ -241,7 +292,7 @@ public class HomeFragment extends Fragment implements GasWebSocketClient.GasWebS
             tvHumidity.setText(String.format("Độ ẩm: %.0f%% - %s", humidityValue, status));
 
             // Hiển thị cảnh báo nếu độ ẩm quá cao
-            if (humidityValue > 80) {
+            if (humidityValue > 200) {
                 showHumidityAlert(humidityValue, status);
             }
         });
